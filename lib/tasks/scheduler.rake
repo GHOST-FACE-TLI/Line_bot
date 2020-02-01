@@ -10,9 +10,9 @@ task :update_feed => :environment do
     config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
 }
 
- url = "https://www.drk7.jp/weather/xml/11.xml"
+ url  = "https://www.drk7.jp/weather/xml/11.xml"
 
- xml = open( url ).read.toutf8
+ xml  = open( url ).read.toutf8
  doc = REXML::Document.new(xml)
 
  xpath = 'weatherforecast/pref/area[2]/info/rainfallchance/'
@@ -44,7 +44,7 @@ task :update_feed => :environment do
      end
 
      push = 
-      "#{word1}\n#{word3}\n降水確率はこんな感じだよ。\n 6~12時 #{per06to12}%\n 12=18時 #{per12to18}\n 18時~24時 #{per18to24}%\n #{word2}"
+      "#{word1}\n#{word3}\n降水確率はこんな感じだよ。\n 6~12時 #{per06to12}%\n 12~18時 #{per12to18}%\n 18時~24時 #{per18to24}%\n#{word2}"
 
       user_ids = User.all.pluck(:line_id)
       message = {
